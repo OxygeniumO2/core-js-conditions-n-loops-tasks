@@ -318,8 +318,45 @@ function getBalanceIndex(arr) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const matrix = [];
+  for (let i = 0; i < size; i += 1) {
+    matrix[i] = [];
+    for (let j = 0; j < size; j += 1) {
+      matrix[i][j] = null;
+    }
+  }
+  let counter = 1;
+
+  let [startRow, endRow] = [0, matrix.length - 1];
+  let [startCol, endCol] = [0, matrix.length - 1];
+
+  while (startRow <= endRow && startCol <= endCol) {
+    for (let i = startCol; i <= endCol; i += 1) {
+      matrix[startRow][i] = counter;
+      counter += 1;
+    }
+    startRow += 1;
+
+    for (let i = startRow; i <= endRow; i += 1) {
+      matrix[i][endCol] = counter;
+      counter += 1;
+    }
+    endCol -= 1;
+
+    for (let i = endCol; i >= startCol; i -= 1) {
+      matrix[endRow][i] = counter;
+      counter += 1;
+    }
+    endRow -= 1;
+
+    for (let i = endRow; i > startCol; i -= 1) {
+      matrix[i][startCol] = counter;
+      counter += 1;
+    }
+    startCol += 1;
+  }
+  return matrix;
 }
 
 /**
@@ -374,8 +411,11 @@ function sortByAsc(arr) {
     let pivotIndex = firstIndex;
     const arrayLink = array;
     for (let i = firstIndex; i < lastIndex; i += 1) {
-      if (array[i] < pivot) {
-        [arrayLink[i], arrayLink[pivotIndex]] = [arr[pivotIndex], array[i]];
+      if (arrayLink[i] < pivot) {
+        [arrayLink[i], arrayLink[pivotIndex]] = [
+          arrayLink[pivotIndex],
+          arrayLink[i],
+        ];
         pivotIndex += 1;
       }
     }
