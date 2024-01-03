@@ -350,7 +350,7 @@ function getSpiralMatrix(size) {
     }
     endRow -= 1;
 
-    for (let i = endRow; i > startCol; i -= 1) {
+    for (let i = endRow; i >= startRow; i -= 1) {
       matrix[i][startCol] = counter;
       counter += 1;
     }
